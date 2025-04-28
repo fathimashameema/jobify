@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:jobify/core/colors/colors.dart';
 import 'package:jobify/core/images/images.dart';
+import 'package:jobify/core/jobs/jobs.dart';
 import 'package:jobify/models/job_model.dart';
 import 'package:jobify/views/widgets/header.dart';
 import 'package:jobify/views/widgets/heading_row.dart';
@@ -125,17 +126,47 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           SizedBox(height: 20),
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: [
-                  NowModeBanner(),
-                  HeadingRow(
-                    heading: 'Recently viewed',
-                    icon: Icon(Icons.splitscreen),
-                  ),
-                ],
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  children: [
+                    NowModeBanner(),
+                    HeadingRow(heading: 'Recently viewed'),
+                    SizedBox(
+                      height: 230,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: alljobs().length,
+                        itemBuilder: (context, index) {
+                          List<JobModel> jobs = alljobs();
+                          final job = jobs[index];
+
+                          return Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: JobCard(job: job),
+                          );
+                        },
+                      ),
+                    ),
+                    HeadingRow(heading: 'New Gigs just in'),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: alljobs().length,
+                      itemBuilder: (context, index) {
+                        List<JobModel> jobs = alljobs();
+                        final job = jobs[index];
+
+                        return Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: JobCard(job: job),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

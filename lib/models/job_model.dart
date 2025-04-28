@@ -1,6 +1,6 @@
 class JobModel {
+  final int id;
   final String profileImage;
-
   final String jobTitle;
   final String companyName;
   final String location;
@@ -9,6 +9,7 @@ class JobModel {
   final String description;
 
   JobModel({
+    required this.id,
     required this.description,
     required this.jobTitle,
     required this.companyName,

@@ -17,6 +17,8 @@ class AppTheme {
     textSelectionTheme: AppTextSelectionTheme.lightTextSelectionTheme,
     switchTheme: AppSwitchTheme.lightSwitchTheme,
     textButtonTheme: AppTextButtonTheme.lightTextButtonTheme,
+    cardColor: AppColors.white,
+    
   );
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: AppColors.black,
@@ -26,5 +28,6 @@ class AppTheme {
     textSelectionTheme: AppTextSelectionTheme.darkTextSelectionTheme,
     switchTheme: AppSwitchTheme.darkSwitchTheme,
     textButtonTheme: AppTextButtonTheme.darkTextButtonTheme,
+    cardColor: AppColors.black,
   );
 }
