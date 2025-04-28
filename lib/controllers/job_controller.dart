@@ -89,9 +89,28 @@ final jobControllerProvider =
 
 class JobController
     extends StateNotifier<AsyncValue<List<RecentlyViewedHive>>> {
-  JobController() : super(const AsyncValue.loading());
+  JobController() : super(const AsyncValue.loading()) {
+    init();
+  }
 
   Box<RecentlyViewedHive>? _jobBox;
+
+  Future<void> init() async {
+    state = const AsyncValue.loading();
+    try {
+      if (!Hive.isAdapterRegistered(0)) {
+        Hive.registerAdapter(RecentlyViewedHiveAdapter());
+      }
+      if (!Hive.isAdapterRegistered(1)) {
+        // Register JobModel's adapter
+        Hive.registerAdapter(JobModelAdapter());
+      }
+      await openBox();
+      await _loadJobs();
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+    }
+  }
 
   Future<void> openBox() async {
     try {

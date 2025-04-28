@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jobify/controllers/job_controller.dart';
 import 'package:jobify/core/colors/colors.dart';
 import 'package:jobify/core/images/images.dart';
 import 'package:jobify/core/jobs/jobs.dart';
 import 'package:jobify/models/job_model.dart';
+import 'package:jobify/views/screens/job_details.dart';
 import 'package:jobify/views/widgets/header.dart';
 import 'package:jobify/views/widgets/heading_row.dart';
 import 'package:jobify/views/widgets/job_card.dart';
 import 'package:jobify/views/widgets/now_mode_banner.dart';
+import 'package:jobify/views/widgets/recently_viewed.dart';
 import 'package:jobify/views/widgets/student_discount.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   bool isActive = false;
   @override
   Widget build(BuildContext context) {
+    final recentlyViewedJobs = ref.watch(jobControllerProvider);
+
     return Scaffold(
       body: Column(
         children: [
@@ -134,22 +139,8 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     NowModeBanner(),
                     HeadingRow(heading: 'Recently viewed'),
-                    SizedBox(
-                      height: 230,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: alljobs().length,
-                        itemBuilder: (context, index) {
-                          List<JobModel> jobs = alljobs();
-                          final job = jobs[index];
+                    RecentlyViewed(context: context, state: recentlyViewedJobs),
 
-                          return Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: JobCard(job: job),
-                          );
-                        },
-                      ),
-                    ),
                     HeadingRow(heading: 'New Gigs just in'),
                     ListView.builder(
                       shrinkWrap: true,
@@ -161,7 +152,20 @@ class _HomePageState extends State<HomePage> {
 
                         return Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: JobCard(job: job),
+                          child: GestureDetector(
+                            onTap: () {
+                              ref
+                                  .read(jobControllerProvider.notifier)
+                                  .addToRecentlyViewed(job);
+
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (ctx) => JobDetails(),
+                                ),
+                              );
+                            },
+                            child: JobCard(job: job),
+                          ),
                         );
                       },
                     ),
