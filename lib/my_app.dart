@@ -11,8 +11,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: BottomNavBar(),
       theme: AppTheme.lightTheme,
-      themeMode: ThemeMode.system,
-      darkTheme: AppTheme.lightTheme,
     );
   }
 }
