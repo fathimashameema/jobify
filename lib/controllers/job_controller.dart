@@ -102,7 +102,6 @@ class JobController
         Hive.registerAdapter(RecentlyViewedHiveAdapter());
       }
       if (!Hive.isAdapterRegistered(1)) {
-        // Register JobModel's adapter
         Hive.registerAdapter(JobModelAdapter());
       }
       await openBox();
@@ -136,7 +135,6 @@ class JobController
     try {
       if (_jobBox == null) await openBox();
 
-      // Check if job already exists
       final existingEntry = _jobBox!.values.firstWhere(
         (item) => item.job?.id == job.id,
         orElse: () => RecentlyViewedHive(),
@@ -151,12 +149,11 @@ class JobController
 
       await _jobBox!.add(RecentlyViewedHive(job: job));
 
-      // Limit to 5 most recent jobs
       if (_jobBox!.length > 5) {
         await _jobBox!.deleteAt(0);
       }
 
-      await _loadJobs(); // Refresh the state
+      await _loadJobs();
     } catch (e, st) {
       state = AsyncValue.error(e, st);
     }
@@ -166,7 +163,7 @@ class JobController
     try {
       if (_jobBox == null) await openBox();
       await _jobBox!.clear();
-      await _loadJobs(); // Refresh the state
+      await _loadJobs();
     } catch (e, st) {
       state = AsyncValue.error(e, st);
     }

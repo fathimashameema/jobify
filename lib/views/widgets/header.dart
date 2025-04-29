@@ -8,6 +8,8 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,7 +28,7 @@ class Header extends StatelessWidget {
             ),
             Row(
               children: [
-                Icon(Icons.location_on_outlined, color: AppColors.black),
+                Icon(Icons.location_on_outlined, color: AppColors.themeBlue),
                 SizedBox(width: 7),
                 Text(
                   'Calicut',
@@ -44,22 +46,18 @@ class Header extends StatelessWidget {
         ),
         Row(
           children: [
-            Icon(
-              HugeIcons.strokeRoundedCrown,
-              color: AppColors.black,
-              size: 27,
-            ),
-            SizedBox(width: 16),
+            Image.asset(AppImages.crown, width: 27, height: 27),
+            SizedBox(width: width * 0.04),
             Stack(
               children: [
                 Icon(
                   HugeIcons.strokeRoundedNotification02,
-                  color: AppColors.black,
+                  color: AppColors.themeBlue,
                   size: 27,
                 ),
               ],
             ),
-            SizedBox(width: 16),
+            SizedBox(width: width * 0.04),
             CircleAvatar(
               radius: 16,
               backgroundImage: AssetImage(AppImages.profile),

@@ -10,15 +10,18 @@ class JobCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: const BoxConstraints(maxWidth: 340),
+    final width = MediaQuery.of(context).size.width;
 
+    final height = MediaQuery.of(context).size.height;
+
+    return Container(
+      constraints: BoxConstraints(maxWidth: width * 0.87),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Theme.of(context).cardColor,
         boxShadow: [
           BoxShadow(
-            color: AppColors.lightGrey,
+            color: AppColors.mediumGrey,
             offset: Offset(0, 1),
             blurRadius: 6,
           ),
@@ -40,13 +43,16 @@ class JobCard extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(color: AppColors.black, width: 0.5),
+                        border: Border.all(
+                          color: AppColors.themeBlue,
+                          width: 0.5,
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(width: 8),
                   SizedBox(
-                    width: 168,
+                    width: width * 0.5,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -54,7 +60,7 @@ class JobCard extends StatelessWidget {
                           job.jobTitle,
                           style: GoogleFonts.roboto(
                             fontSize: 16,
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).primaryColorDark,
                           ),
                         ),
 
@@ -71,7 +77,13 @@ class JobCard extends StatelessWidget {
                 ],
               ),
               GestureDetector(
-                child: Image.asset(AppImages.bookmark, height: 20, width: 20),
+                child: Image.asset(
+                  AppImages.bookmark,
+
+                  height: 20,
+                  width: 20,
+                  color: AppColors.themeBlue,
+                ),
               ),
             ],
           ),
@@ -141,12 +153,14 @@ class JobCard extends StatelessWidget {
                 style: GoogleFonts.roboto(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).primaryColorDark,
                 ),
               ),
               Container(
-                height: 40,
-                width: 120,
+                // height: 40,
+                height: height * 0.05,
+                // width: 120,
+                width: width * 0.31,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Theme.of(context).primaryColor,

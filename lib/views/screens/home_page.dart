@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jobify/controllers/job_controller.dart';
+import 'package:jobify/controllers/state_controllers.dart';
 import 'package:jobify/core/colors/colors.dart';
 import 'package:jobify/core/images/images.dart';
 import 'package:jobify/core/jobs/jobs.dart';
@@ -23,16 +24,20 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  bool isActive = false;
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+  
+
     final recentlyViewedJobs = ref.watch(jobControllerProvider);
+    final isActive = ref.watch(nowModeProvider);
 
     return Scaffold(
       body: Column(
         children: [
           Container(
-            width: double.infinity,
+            // width: double.infinity,
+            width: width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
               gradient: LinearGradient(
@@ -41,7 +46,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 colors: [
                   AppColors.lightGreen,
                   AppColors.darkGreen,
-                  AppColors.black,
+                  AppColors.themeBlue,
                 ],
                 stops: [0.0, 0.5519, 0.8317],
               ),
@@ -58,7 +63,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           child: SearchBar(
                             leading: Icon(
                               Icons.search,
-                              color: AppColors.lightGrey,
+                              color: AppColors.lightGrey.withAlpha(170),
                             ),
                             hintText: 'Search',
                             trailing: [
@@ -85,14 +90,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                             FlutterSwitch(
                               value: isActive,
                               onToggle: (value) {
-                                setState(() {
-                                  isActive = !isActive;
-                                });
+                                ref.read(nowModeProvider.notifier).state =
+                                    value;
                               },
                               inactiveColor: AppColors.white,
-                              activeColor: AppColors.black,
+                              activeColor: AppColors.themeBlue,
                               activeToggleColor: AppColors.white,
-                              toggleColor: AppColors.black,
+                              toggleColor: AppColors.themeBlue,
                               toggleSize: 30,
                               padding: 1,
                               width: 65,
@@ -130,18 +134,22 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
             ),
           ),
-          SizedBox(height: 20),
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
                   children: [
+                    SizedBox(height: 20),
+
                     NowModeBanner(),
                     HeadingRow(heading: 'Recently viewed'),
                     RecentlyViewed(context: context, state: recentlyViewedJobs),
 
-                    HeadingRow(heading: 'New Gigs just in'),
+                    HeadingRow(
+                      heading: 'New Gigs just in',
+                      padding: EdgeInsets.only(top: 20),
+                    ),
                     ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
@@ -160,7 +168,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (ctx) => JobDetails(),
+                                  builder: (ctx) => JobDetails(job: job),
                                 ),
                               );
                             },

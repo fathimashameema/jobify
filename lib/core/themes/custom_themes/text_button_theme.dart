@@ -8,13 +8,13 @@ class AppTextButtonTheme {
       minimumSize: Size(57, 26),
 
       elevation: 0,
-      foregroundColor: AppColors.black,
+      foregroundColor: AppColors.themeBlue,
       backgroundColor: AppColors.white,
 
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       textStyle: TextStyle(
         fontSize: 14,
-        color: AppColors.black,
+        color: AppColors.themeBlue,
         fontWeight: FontWeight.w400,
       ),
     ),
@@ -23,7 +23,7 @@ class AppTextButtonTheme {
     style: TextButton.styleFrom(
       minimumSize: Size(57, 26),
       elevation: 0,
-      foregroundColor: AppColors.black,
+      foregroundColor: AppColors.themeBlue,
       backgroundColor: AppColors.white,
 
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

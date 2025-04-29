@@ -25,13 +25,15 @@ class JobModelAdapter extends TypeAdapter<JobModel> {
       datetime: fields[5] as String,
       payment: fields[6] as String,
       description: fields[7] as String,
+      experience: fields[8] as String?,
+      vacancy: fields[9] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, JobModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -47,7 +49,11 @@ class JobModelAdapter extends TypeAdapter<JobModel> {
       ..writeByte(6)
       ..write(obj.payment)
       ..writeByte(7)
-      ..write(obj.description);
+      ..write(obj.description)
+      ..writeByte(8)
+      ..write(obj.experience)
+      ..writeByte(9)
+      ..write(obj.vacancy);
   }
 
   @override

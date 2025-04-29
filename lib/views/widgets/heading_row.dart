@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:jobify/core/images/images.dart';
 
 class HeadingRow extends StatelessWidget {
   final String heading;
-  const HeadingRow({super.key, required this.heading});
+  final EdgeInsetsGeometry? padding;
+
+  const HeadingRow({super.key, required this.heading, this.padding});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 25.0),
+      padding: padding ?? const EdgeInsets.symmetric(vertical: 20.0),
       child: Row(
         children: [
           Expanded(
@@ -17,7 +20,7 @@ class HeadingRow extends StatelessWidget {
             ),
           ),
 
-          Icon(Icons.splitscreen),
+          Image.asset(AppImages.menuIcon, height: 20, width: 20),
         ],
       ),
     );

@@ -7,15 +7,29 @@ class NowModeBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Container(
       padding: EdgeInsets.all(30),
       width: double.infinity,
+
       decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.lightGrey,
+            offset: Offset(0, 1),
+            blurRadius: 6,
+          ),
+        ],
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        image: DecorationImage(
-          image: AssetImage(AppImages.nowModeBackground),
-          fit: BoxFit.cover,
-        ),
+        color: AppColors.themeBlue,
+        image:
+            width < 600
+                ? DecorationImage(
+                  image: AssetImage(AppImages.nowModeBackground),
+                  fit: BoxFit.cover,
+                )
+                : null,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -29,7 +43,8 @@ class NowModeBanner extends StatelessWidget {
           ),
           SizedBox(height: 5),
           SizedBox(
-            width: 210,
+            // width: 210,
+            width: width * 0.55,
             child: RichText(
               text: TextSpan(
                 children: [

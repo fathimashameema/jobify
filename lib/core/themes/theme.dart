@@ -12,18 +12,21 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: AppColors.white,
     textTheme: AppTexttheme.lightTextTheme,
-    primaryColor: AppColors.black,
+    primaryColor: AppColors.themeBlue,
+    primaryColorDark: AppColors.black,
+    primaryColorLight: AppColors.themeBlue,
     searchBarTheme: AppSearchBarTheme.lightSearchBarTheme,
     textSelectionTheme: AppTextSelectionTheme.lightTextSelectionTheme,
     switchTheme: AppSwitchTheme.lightSwitchTheme,
     textButtonTheme: AppTextButtonTheme.lightTextButtonTheme,
     cardColor: AppColors.white,
-    
   );
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: AppColors.black,
     textTheme: AppTexttheme.darkTextTheme,
     primaryColor: AppColors.white,
+    primaryColorDark: AppColors.white,
+    primaryColorLight: AppColors.themeBlue,
     searchBarTheme: AppSearchBarTheme.darkSearchBarTheme,
     textSelectionTheme: AppTextSelectionTheme.darkTextSelectionTheme,
     switchTheme: AppSwitchTheme.darkSwitchTheme,

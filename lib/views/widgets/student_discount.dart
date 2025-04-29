@@ -8,6 +8,7 @@ class StudentDiscount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textFactor = MediaQuery.of(context).textScaler;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -15,7 +16,7 @@ class StudentDiscount extends StatelessWidget {
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
           colors: [AppColors.pastelDarkGreem, AppColors.pastelBlue],
-          stops: [0.8, 1.0],
+          stops: [0.0, 0.9],
         ),
       ),
       child: Padding(
@@ -36,8 +37,8 @@ class StudentDiscount extends StatelessWidget {
                             'Student discounts!',
                             // style: Theme.of(context).textTheme.titleSmall,
                             style: GoogleFonts.roboto(
-                              fontSize: 16,
-                              color: AppColors.black,
+                              fontSize: textFactor.scale(16),
+                              color: AppColors.themeBlue,
                             ),
                           ),
                           Image.asset(
@@ -50,7 +51,7 @@ class StudentDiscount extends StatelessWidget {
                       Text(
                         'Exclusive deals just for you.',
                         style: GoogleFonts.roboto(
-                          fontSize: 12,
+                          fontSize: textFactor.scale(12),
                           color: AppColors.grey,
                         ),
                       ),
@@ -59,7 +60,13 @@ class StudentDiscount extends StatelessWidget {
                 ],
               ),
             ),
-            TextButton(onPressed: () {}, child: Text('Claim')),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                'Claim',
+                style: GoogleFonts.roboto(color: AppColors.themeBlue),
+              ),
+            ),
           ],
         ),
       ),

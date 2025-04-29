@@ -12,11 +12,13 @@ class AppSearchBarTheme {
     shape: WidgetStateProperty.all(
       RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: AppColors.lightGrey),
+        side: BorderSide(color: AppColors.lightGrey.withAlpha(150)),
       ),
     ),
-    side: WidgetStateProperty.all(BorderSide(color: AppColors.lightGrey)),
-    hintStyle: WidgetStateProperty.all(TextStyle(color: AppColors.lightGrey)),
+    side: WidgetStateProperty.all(
+      BorderSide(color: AppColors.lightGrey.withAlpha(150)),
+    ),
+    hintStyle: WidgetStateProperty.all(TextStyle(color: AppColors.lightGrey.withAlpha(100))),
     textStyle: WidgetStateProperty.all(TextStyle(color: AppColors.lightGrey)),
     constraints: const BoxConstraints(minHeight: 48),
     padding: WidgetStateProperty.all(
@@ -32,11 +34,11 @@ class AppSearchBarTheme {
     shape: WidgetStateProperty.all(
       RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: AppColors.lightGrey),
+        side: BorderSide(color: AppColors.lightGrey.withAlpha(150)),
       ),
     ),
-    side: WidgetStateProperty.all(BorderSide(color: AppColors.lightGrey)),
-    hintStyle: WidgetStateProperty.all(TextStyle(color: AppColors.lightGrey)),
+    side: WidgetStateProperty.all(BorderSide(color: AppColors.lightGrey.withAlpha(150))),
+    hintStyle: WidgetStateProperty.all(TextStyle(color: AppColors.lightGrey.withAlpha(100))),
     textStyle: WidgetStateProperty.all(TextStyle(color: AppColors.lightGrey)),
     constraints: const BoxConstraints(minHeight: 48),
     padding: WidgetStateProperty.all(

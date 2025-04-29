@@ -15,12 +15,15 @@ class RecentlyViewed extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final textFactor = MediaQuery.of(context).textScaler;
     return state.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) => Center(child: Text('Error: $error')),
 
       data: (values) {
-        final jobs = values.reversed.toList(); 
+        final jobs = values.reversed.toList();
 
         if (jobs.isEmpty) {
           return Padding(
@@ -31,14 +34,16 @@ class RecentlyViewed extends ConsumerWidget {
                   'Once you check out a job, it’ll show up right here for easy access.',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.roboto(
-                    fontSize: 16,
+                    fontSize: textFactor.scale(16),
                     color: AppColors.grey,
                   ),
                 ),
                 SizedBox(height: 20),
                 Container(
-                  width: 150,
-                  height: 40,
+                  // width: 150,
+                  width: width * 0.39,
+                  // height: 40,
+                  height: height * 0.05,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Theme.of(context).primaryColor,
@@ -71,7 +76,7 @@ class RecentlyViewed extends ConsumerWidget {
         }
 
         return SizedBox(
-          height: 230,
+          height: width < 600 ? height * 0.293 : height * 0.35,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: jobs.length,
@@ -87,9 +92,9 @@ class RecentlyViewed extends ConsumerWidget {
                     ref
                         .read(jobControllerProvider.notifier)
                         .addToRecentlyViewed(job);
-                    Navigator.of(
-                      context,
-                    ).push(MaterialPageRoute(builder: (ctx) => JobDetails()));
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (ctx) => JobDetails(job: job)),
+                    );
                   },
                   child: JobCard(job: job),
                 ),
