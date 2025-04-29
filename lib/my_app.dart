@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       home: BottomNavBar(),
       theme: AppTheme.lightTheme,
       themeMode: ThemeMode.system,
-      darkTheme: AppTheme.darkTheme,
+      darkTheme: AppTheme.lightTheme,
     );
   }
 }
